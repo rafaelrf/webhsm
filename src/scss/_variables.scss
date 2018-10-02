@@ -1,0 +1,55 @@
+// Variable overrides
+
+
+// Color system
+// stylelint-disable
+
+$red:        #b10d1d !default;
+$primary:       $red !default;
+
+
+// Navbar (Icone no Sao Marcos)
+
+$navbar-height:                       55px !default;
+$navbar-bg:                           #fff !default;
+$navbar-brand-width:                  200px !default;
+$navbar-brand-bg:                     #b10d1d !default;
+$navbar-brand-border:                 0 !default;
+
+
+
+// Sidebar  (BARRA DE MENU DE SISTEMAS)
+$sidebar-bg:                          #fff !default;
+$sidebar-color:                       #29363d !default;
+
+.sidebar{
+    border-right: 1px solid #c2cfd6 !important;
+}
+
+.app-header .navbar-brand{
+    background-color: white !important;
+    border-bottom: 1px solid #c8ced3 !important; 
+}
+
+//border-right: 1px solid #c2cfd6;
+
+// Sidebar Titulo
+$sidebar-nav-title-color:             #536c79 !default;
+$sidebar-nav-title-padding-y:         .9rem !default;
+$sidebar-nav-title-padding-x:         1rem !default;
+
+// Sidebar Navigation
+$sidebar-nav-link-color:              #29363d !default;
+$sidebar-nav-link-icon-color:         #536c79 !default;
+
+//nav efeito ao passar o mouse
+$sidebar-nav-link-hover-color:        #fff !default;
+$sidebar-nav-link-hover-icon-color:   #fff !default;
+
+//nav-link ativo
+$sidebar-nav-link-active-color:       #fff !default;
+$sidebar-nav-link-active-bg:          lighten(#b10d1d, 5%) !default;
+$sidebar-nav-link-active-icon-color:  #fff !default;
+$sidebar-nav-link-active-borders:     0 !default;
+
+
