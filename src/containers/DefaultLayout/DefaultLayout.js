@@ -5,13 +5,7 @@ import { Container } from 'reactstrap';
 import {
   AppBreadcrumb,
   AppFooter,
-  AppHeader,
-  AppSidebar,
-  AppSidebarFooter,
-  AppSidebarForm,
-  AppSidebarHeader,
-  AppSidebarMinimizer,
-  AppSidebarNav,
+  AppHeader
 } from '@coreui/react';
 // sidebar nav config
 //import navigation from '../../_nav';

@@ -4,7 +4,6 @@ import logo from '../../assets/img/brand/logo.svg'
 
 class Dashboard extends Component {
   render() {
-    const { usuario } = this.props.user
 
     return (
       <div className="animated fadeIn">
@@ -13,14 +12,14 @@ class Dashboard extends Component {
 
         <div className="card">
           <div className="card-header">
-            Seja Bem Vindo {usuario}
+            Seja Bem Vindo
           </div>
           <div className="card-body">
 
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
               <img src={logo} height="150px" alt="Seja Bem Vindo" />
             </div>
-            
+
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
               Hospital São Marcos. Para toda vida - Todos os direitos reservados 2018
             </div>
