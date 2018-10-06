@@ -1,11 +1,21 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 
-class Home extends Component {
-  render() {
-    //    const { usuario } = this.props.user
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
+import {
+  carregaConvenios,  selecionaConvenio, selecionaPlano,
+  selecionaEspecialidade, selecionaMedico, actionFormAgendamento
+} from '../../DadosAgendamentoActions'
+
+class Home extends Component {
+
+  componentWillMount() {
+    this.props.carregaConvenios();
+  }
+
+  render() {
     return (
       <div className="animated fadeIn">
         <div className="flex-row align-items-center">
@@ -23,11 +33,14 @@ class Home extends Component {
                               <i className="icon-user"></i>
                             </InputGroupText>
                           </InputGroupAddon>
-                          <Input type="select" name="selectLg" id="selectLg" bsSize="lg">
-                            <option value="0">Convênio</option>
-                            <option value="1">Option #1</option>
-                            <option value="2">Option #2</option>
-                            <option value="3">Option #3</option>
+                          <Input type="select" name="selectLg" bsSize="lg" value={this.props.idconvenio}
+                            onChange={this.props.selecionaConvenio}>
+                            <option value="0">Selecione um Convênio</option>
+                            {this.props.convenios.map((convenio) => {
+                              return (
+                                <option key={convenio.id_convenio} value={convenio.id_convenio}>{convenio.nm_convenio}</option>
+                              );
+                            })}
                           </Input>
                         </InputGroup>
                         <InputGroup className="mb-4">
@@ -36,11 +49,14 @@ class Home extends Component {
                               <i className="icon-lock"></i>
                             </InputGroupText>
                           </InputGroupAddon>
-                          <Input type="select" name="selectLg" id="selectLg" bsSize="lg">
-                            <option value="0">Plano</option>
-                            <option value="1">Option #1</option>
-                            <option value="2">Option #2</option>
-                            <option value="3">Option #3</option>
+                          <Input type="select" name="selectLg" bsSize="lg" value={this.props.idplanoconvenio}
+                            onChange={this.props.selecionaPlano}>
+                            <option value="0">Selecione o Plano</option>
+                            {this.props.planoconvenios.map((plano) => {
+                              return (
+                                <option key={plano.id_plano} value={plano.id_plano}>{plano.nm_plano}</option>
+                              );
+                            })}
                           </Input>
                         </InputGroup>
                         <InputGroup className="mb-4">
@@ -49,11 +65,14 @@ class Home extends Component {
                               <i className="icon-lock"></i>
                             </InputGroupText>
                           </InputGroupAddon>
-                          <Input type="select" name="selectLg" id="selectLg" bsSize="lg">
-                            <option value="0">Especialidade</option>
-                            <option value="1">Option #1</option>
-                            <option value="2">Option #2</option>
-                            <option value="3">Option #3</option>
+                          <Input type="select" name="selectLg" bsSize="lg" value={this.props.idespecialidade}
+                            onChange={this.props.selecionaEspecialidade}>
+                            <option value="0">Selecione a Especialidade</option>
+                            {this.props.especialidades.map((especialidade) => {
+                              return (
+                                <option key={especialidade.id_especialidade} value={especialidade.id_especialidade}>{especialidade.nm_especialidade}</option>
+                              );
+                            })}
                           </Input>
                         </InputGroup>
                         <InputGroup className="mb-4">
@@ -62,16 +81,19 @@ class Home extends Component {
                               <i className="icon-lock"></i>
                             </InputGroupText>
                           </InputGroupAddon>
-                          <Input type="select" name="selectLg" id="selectLg" bsSize="lg">
-                            <option value="0">Médico</option>
-                            <option value="1">Option #1</option>
-                            <option value="2">Option #2</option>
-                            <option value="3">Option #3</option>
+                          <Input type="select" name="selectLg" bsSize="lg" value={this.props.idmedico}
+                            onChange={this.props.selecionaMedico}>
+                            <option value="0">Selecione o Médico</option>
+                            {this.props.medicos.map((medico) => {
+                              return (
+                                <option key={medico.id_medico} value={medico.id_medico}>{medico.nm_medico}</option>
+                              );
+                            })}
                           </Input>
                         </InputGroup>
                         <Row>
                           <Col xs="6">
-                            <Button color="primary" className="px-4">Confirmar</Button>
+                            <Button color="primary" className="px-4" onClick={(e) => this.props.actionFormAgendamento(e,this.props)}>Confirmar</Button>
                           </Col>
                         </Row>
                       </Form>
@@ -87,5 +109,20 @@ class Home extends Component {
   }
 }
 
-const mapStateToProps = state => ({ dados: state.dadosAgendamento })
-export default connect(mapStateToProps, null)(Home)
+const mapStateToProps = state => ({
+  convenios:        state.dadosAgendamento.convenios,
+  idconvenio:         state.dadosAgendamento.idconvenio,
+  medicos:          state.dadosAgendamento.medicos,
+  idmedico:           state.dadosAgendamento.idmedico,
+  especialidades:   state.dadosAgendamento.especialidades,
+  idespecialidade:    state.dadosAgendamento.idespecialidade,
+  planoconvenios:   state.dadosAgendamento.planoconvenios,
+  idplanoconvenio:    state.dadosAgendamento.idplanoconvenio,
+})
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  carregaConvenios,  selecionaConvenio, selecionaPlano,
+  selecionaEspecialidade, selecionaMedico, actionFormAgendamento
+}, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home)
