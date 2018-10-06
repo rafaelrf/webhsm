@@ -11,9 +11,15 @@ const Home = Loadable({
   loading: Loading,
 });
 
+const Doctor = Loadable({
+  loader: () => import('./views/doctor/Doctor'),
+  loading: Loading,
+});
+
 const routes = [
   { path: '/', exact: true, name: 'Home', component: DefaultLayout },
-  { path: '/agendamento', name: 'Agendamento', component: Home }
+  { path: '/agendamento', exact: true, name: 'Agendamento', component: Home },
+  { path: '/agendamento/medico', name: 'Medico', component: Doctor }
 ];
 
 export default routes;

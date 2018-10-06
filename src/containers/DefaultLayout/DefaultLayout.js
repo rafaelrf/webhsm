@@ -15,7 +15,7 @@ import routes from '../../routes';
 import DefaultFooter from './DefaultFooter';
 import DefaultHeader from './DefaultHeader';
 import MyToaster from '../../util/toaster'
-
+import { connect } from 'react-redux'
 
 class DefaultLayout extends Component {
 
@@ -30,6 +30,23 @@ class DefaultLayout extends Component {
     this.setState({ navData: { "items": getNav() } })
   }
 
+  validedRoutes() {
+    return (
+      routes.map((route, idx) => {
+        if (route.name === "Medico" && (this.props.idconvenio === 0 || this.props.idmedico === 0
+          || this.props.idespecialidade === 0 || this.props.idplanoconvenio === 0)) {
+
+          return (null);
+        }
+        return route.component ? (<Route key={idx} path={route.path} exact={route.exact} name={route.name} render={props => (
+          <route.component {...props} />
+        )} />) : (null);
+
+      },
+      )
+    );
+  }
+
   render() {
     return (
       <div className="app">
@@ -41,13 +58,7 @@ class DefaultLayout extends Component {
             <AppBreadcrumb appRoutes={routes} />
             <Container fluid>
               <Switch>
-                {routes.map((route, idx) => {
-                  return route.component ? (<Route key={idx} path={route.path} exact={route.exact} name={route.name} render={props => (
-                    <route.component {...props} />
-                  )} />)
-                    : (null);
-                },
-                )}
+                {this.validedRoutes()}
                 <Redirect from="/" to="/agendamento" />
               </Switch>
             </Container>
@@ -62,4 +73,13 @@ class DefaultLayout extends Component {
   }
 }
 
-export default DefaultLayout;
+//export default DefaultLayout;
+
+const mapStateToProps = state => ({
+  idconvenio: state.dadosAgendamento.idconvenio,
+  idmedico: state.dadosAgendamento.idmedico,
+  idespecialidade: state.dadosAgendamento.idespecialidade,
+  idplanoconvenio: state.dadosAgendamento.idplanoconvenio,
+})
+
+export default connect(mapStateToProps)(DefaultLayout)

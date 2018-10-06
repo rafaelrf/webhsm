@@ -24,6 +24,7 @@
     "moment": "^2.22.2",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
+    "react-calendar": "^2.17.4",
     "react-chartjs-2": "^2.7.2",
     "react-dom": "^16.4.2",
     "react-loadable": "^5.4.0",

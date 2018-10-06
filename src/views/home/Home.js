@@ -5,14 +5,35 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import {
-  carregaConvenios,  selecionaConvenio, selecionaPlano,
-  selecionaEspecialidade, selecionaMedico, actionFormAgendamento
+  carregaConvenios, selecionaConvenio, selecionaPlano,
+  selecionaEspecialidade, selecionaMedico
 } from '../../DadosAgendamentoActions'
+import { toastr } from 'react-redux-toastr'
 
 class Home extends Component {
 
   componentWillMount() {
     this.props.carregaConvenios();
+  }
+
+  actionFormAgendamento(event) {
+    event.preventDefault();
+
+    if (this.props.idconvenio === 0) {
+      toastr.error('Atenção', "Informe o Convênio!");
+      return;
+    } else if (this.props.idplanoconvenio === 0) {
+      toastr.error('Atenção', "Informe o Plano!");
+      return;
+    } else if (this.props.idespecialidade === 0) {
+      toastr.error('Atenção', "Informe a Especialidade!");
+      return;
+    } else if (this.props.idmedico === 0) {
+      toastr.error('Atenção', "Informe o Médico!");
+      return;
+    }
+
+    window.location.href="/#/agendamento/medico";
   }
 
   render() {
@@ -25,8 +46,8 @@ class Home extends Component {
                 <CardGroup>
                   <Card className="p-4">
                     <CardBody>
-                      <Form>
-                        <h1 style={{paddingBottom: "15px"}} >Agendamento</h1>
+                      <Form onSubmit={this.actionFormAgendamento.bind(this)}>
+                        <h1 style={{ paddingBottom: "15px" }} >Agendamento</h1>
                         <InputGroup className="mb-3">
                           <InputGroupAddon addonType="prepend">
                             <InputGroupText>
@@ -93,7 +114,7 @@ class Home extends Component {
                         </InputGroup>
                         <Row>
                           <Col xs="6">
-                            <Button color="primary" className="px-4" onClick={(e) => this.props.actionFormAgendamento(e,this.props)}>Confirmar</Button>
+                            <Button color="primary" className="px-4" >Confirmar</Button>
                           </Col>
                         </Row>
                       </Form>
@@ -110,19 +131,19 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => ({
-  convenios:        state.dadosAgendamento.convenios,
-  idconvenio:         state.dadosAgendamento.idconvenio,
-  medicos:          state.dadosAgendamento.medicos,
-  idmedico:           state.dadosAgendamento.idmedico,
-  especialidades:   state.dadosAgendamento.especialidades,
-  idespecialidade:    state.dadosAgendamento.idespecialidade,
-  planoconvenios:   state.dadosAgendamento.planoconvenios,
-  idplanoconvenio:    state.dadosAgendamento.idplanoconvenio,
+  convenios: state.dadosAgendamento.convenios,
+  idconvenio: state.dadosAgendamento.idconvenio,
+  medicos: state.dadosAgendamento.medicos,
+  idmedico: state.dadosAgendamento.idmedico,
+  especialidades: state.dadosAgendamento.especialidades,
+  idespecialidade: state.dadosAgendamento.idespecialidade,
+  planoconvenios: state.dadosAgendamento.planoconvenios,
+  idplanoconvenio: state.dadosAgendamento.idplanoconvenio,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  carregaConvenios,  selecionaConvenio, selecionaPlano,
-  selecionaEspecialidade, selecionaMedico, actionFormAgendamento
+  carregaConvenios, selecionaConvenio, selecionaPlano,
+  selecionaEspecialidade, selecionaMedico
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)
