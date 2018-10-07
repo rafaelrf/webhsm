@@ -38,6 +38,12 @@ class DefaultLayout extends Component {
 
           return (null);
         }
+
+        if (route.name === "Paciente" && !(this.props.checkboxDeclaraCiente)){
+
+          return (null);
+        }
+
         return route.component ? (<Route key={idx} path={route.path} exact={route.exact} name={route.name} render={props => (
           <route.component {...props} />
         )} />) : (null);
@@ -80,6 +86,7 @@ const mapStateToProps = state => ({
   idmedico: state.dadosAgendamento.idmedico,
   idespecialidade: state.dadosAgendamento.idespecialidade,
   idplanoconvenio: state.dadosAgendamento.idplanoconvenio,
+  checkboxDeclaraCiente: state.dadosAgendamento.checkboxDeclaraCiente
 })
 
 export default connect(mapStateToProps)(DefaultLayout)

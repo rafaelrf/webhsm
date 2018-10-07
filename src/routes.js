@@ -16,10 +16,16 @@ const Doctor = Loadable({
   loading: Loading,
 });
 
+const Patient = Loadable({
+  loader: () => import('./views/patient/patient'),
+  loading: Loading,
+});
+
 const routes = [
   { path: '/', exact: true, name: 'Home', component: DefaultLayout },
   { path: '/agendamento', exact: true, name: 'Agendamento', component: Home },
-  { path: '/agendamento/medico', name: 'Medico', component: Doctor }
+  { path: '/agendamento/medico', exact: true, name: 'Médico', component: Doctor },
+  { path: '/agendamento/medico/paciente', name: 'Paciente', component: Patient }
 ];
 
 export default routes;

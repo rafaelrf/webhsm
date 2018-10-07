@@ -40,7 +40,7 @@ class Home extends Component {
     return (
       <div className="animated fadeIn">
         <div className="flex-row align-items-center">
-          <Container>
+          <Container style={{paddingBottom:30}}>
             <Row className="justify-content-center">
               <Col md="6">
                 <CardGroup>
@@ -51,7 +51,7 @@ class Home extends Component {
                         <InputGroup className="mb-3">
                           <InputGroupAddon addonType="prepend">
                             <InputGroupText>
-                              <i className="icon-user"></i>
+                              <i className="fa fa-handshake-o"></i>
                             </InputGroupText>
                           </InputGroupAddon>
                           <Input type="select" name="selectLg" bsSize="lg" value={this.props.idconvenio}
@@ -67,7 +67,7 @@ class Home extends Component {
                         <InputGroup className="mb-4">
                           <InputGroupAddon addonType="prepend">
                             <InputGroupText>
-                              <i className="icon-lock"></i>
+                              <i className="fa fa-address-card-o"></i>
                             </InputGroupText>
                           </InputGroupAddon>
                           <Input type="select" name="selectLg" bsSize="lg" value={this.props.idplanoconvenio}
@@ -83,7 +83,7 @@ class Home extends Component {
                         <InputGroup className="mb-4">
                           <InputGroupAddon addonType="prepend">
                             <InputGroupText>
-                              <i className="icon-lock"></i>
+                              <i className="fa fa-hospital-o"></i>
                             </InputGroupText>
                           </InputGroupAddon>
                           <Input type="select" name="selectLg" bsSize="lg" value={this.props.idespecialidade}
@@ -99,7 +99,7 @@ class Home extends Component {
                         <InputGroup className="mb-4">
                           <InputGroupAddon addonType="prepend">
                             <InputGroupText>
-                              <i className="icon-lock"></i>
+                              <i className="fa fa-user-md"></i>
                             </InputGroupText>
                           </InputGroupAddon>
                           <Input type="select" name="selectLg" bsSize="lg" value={this.props.idmedico}
@@ -113,8 +113,8 @@ class Home extends Component {
                           </Input>
                         </InputGroup>
                         <Row>
-                          <Col xs="6">
-                            <Button color="primary" className="px-4" >Confirmar</Button>
+                          <Col xs="12">
+                            <Button color="primary" block className="px-4" ><h4>Confirmar</h4></Button>
                           </Col>
                         </Row>
                       </Form>

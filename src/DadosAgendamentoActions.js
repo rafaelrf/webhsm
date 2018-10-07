@@ -32,13 +32,26 @@ export function selecionaMedico(e) {
     return {type: 'MEDICO_SELECIONADO_AGENDAMENTO', payload: +e.target.value}
 }
 
-export function declaraEstarCiente(e) {
-    return {type: 'CHECKBOX_DECLARA_CIENTE_AGENDAMENTO', payload: +e.target.value}
+export function declaraEstarCiente(value) {
+    return {type: 'CHECKBOX_DECLARA_CIENTE_AGENDAMENTO', payload: !value}
 }
 
 export function escolhendoDataAgendamento(data) {
     return {type: 'ESCONHEDO_DATA_AGENDAMENTO', payload: data}
 }
+
+export function nomePacienteChange(e) {
+    return {type: 'NOME_PACIENTE_CHANGE', payload: e.target.value}
+}
+
+export function cpfPacienteChange(e) {
+    return {type: 'CPF_PACIENTE_CHANGE', payload: e.target.value}
+}
+
+export function fonePacienteChange(e) {
+    return {type: 'FONE_PACIENTE_CHANGE', payload: e.target.value}
+}
+
 
 
 /*

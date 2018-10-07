@@ -10,8 +10,11 @@ const INITIAL_STATE = {
     idespecialidade: 0,
     planoconvenios: [],
     idplanoconvenio: 0,
-    checkboxDeclaraCiente: 0,
-    dataAgendamento: new Date()
+    checkboxDeclaraCiente: false,
+    dataAgendamento: new Date(),
+    nomePaciente: "",
+    cpfPaciente: "",
+    fonePaciente: ""
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -36,6 +39,12 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, checkboxDeclaraCiente: action.payload }
         case 'ESCONHEDO_DATA_AGENDAMENTO':
             return { ...state, dataAgendamento: action.payload }            
+        case 'NOME_PACIENTE_CHANGE':
+            return { ...state, nomePaciente: action.payload }            
+        case 'CPF_PACIENTE_CHANGE':
+            return { ...state, cpfPaciente: action.payload }            
+        case 'FONE_PACIENTE_CHANGE':
+            return { ...state, fonePaciente: action.payload }                        
         default:
             return state
     }
