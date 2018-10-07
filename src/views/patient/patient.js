@@ -32,7 +32,7 @@ class Patient extends Component {
             return;
         }
 
-        //window.location.href="/#/agendamento/medico";
+        window.location.href="/#/agendamento/medico/paciente/confirmacao";
     }
 
     render() {

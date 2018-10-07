@@ -21,11 +21,17 @@ const Patient = Loadable({
   loading: Loading,
 });
 
+const Confirmation = Loadable({
+  loader: () => import('./views/confirmation/confirmation'),
+  loading: Loading,
+});
+
 const routes = [
   { path: '/', exact: true, name: 'Home', component: DefaultLayout },
   { path: '/agendamento', exact: true, name: 'Agendamento', component: Home },
   { path: '/agendamento/medico', exact: true, name: 'Médico', component: Doctor },
-  { path: '/agendamento/medico/paciente', name: 'Paciente', component: Patient }
+  { path: '/agendamento/medico/paciente', exact: true, name: 'Paciente', component: Patient },
+  { path: '/agendamento/medico/paciente/confirmacao', exact: true, name: 'Confirmação do Agendamento', component: Confirmation }
 ];
 
 export default routes;

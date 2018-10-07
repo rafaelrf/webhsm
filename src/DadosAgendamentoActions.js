@@ -36,8 +36,8 @@ export function declaraEstarCiente(value) {
     return {type: 'CHECKBOX_DECLARA_CIENTE_AGENDAMENTO', payload: !value}
 }
 
-export function escolhendoDataAgendamento(data) {
-    return {type: 'ESCONHEDO_DATA_AGENDAMENTO', payload: data}
+export function escolhendoDataConsulta(data) {
+    return {type: 'ESCONHEDO_DATA_CONSULTA', payload: data}
 }
 
 export function nomePacienteChange(e) {
@@ -51,7 +51,6 @@ export function cpfPacienteChange(e) {
 export function fonePacienteChange(e) {
     return {type: 'FONE_PACIENTE_CHANGE', payload: e.target.value}
 }
-
 
 
 /*

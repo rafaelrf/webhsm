@@ -9,7 +9,7 @@ import Calendar from 'react-calendar';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import {
-  declaraEstarCiente, escolhendoDataAgendamento
+  declaraEstarCiente, escolhendoDataConsulta
 } from '../../DadosAgendamentoActions'
 import { toastr } from 'react-redux-toastr'
 
@@ -65,8 +65,8 @@ class Doctor extends Component {
                     <CardBody style={{ height: 300 }}>
                       <Row className="justify-content-center">
                         <Calendar
-                          onChange={this.props.escolhendoDataAgendamento}
-                          value={this.props.dataAgendamento}
+                          onChange={this.props.escolhendoDataConsulta}
+                          value={this.props.dataConsulta}
                         />
                       </Row>
                     </CardBody>
@@ -133,11 +133,11 @@ class Doctor extends Component {
 const mapStateToProps = state => ({
   medico: state.dadosAgendamento.medico,
   checkboxDeclaraCiente: state.dadosAgendamento.checkboxDeclaraCiente,
-  dataAgendamento: state.dadosAgendamento.dataAgendamento,
+  dataConsulta: state.dadosAgendamento.dataConsulta,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  declaraEstarCiente, escolhendoDataAgendamento
+  declaraEstarCiente, escolhendoDataConsulta
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Doctor)

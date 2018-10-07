@@ -33,14 +33,22 @@ class DefaultLayout extends Component {
   validedRoutes() {
     return (
       routes.map((route, idx) => {
-        if (route.name === "Medico" && (this.props.idconvenio === 0 || this.props.idmedico === 0
+
+        if (route.name === "Médico" && (this.props.idconvenio === 0 || this.props.idmedico === 0
           || this.props.idespecialidade === 0 || this.props.idplanoconvenio === 0)) {
 
           return (null);
         }
 
-        if (route.name === "Paciente" && !(this.props.checkboxDeclaraCiente)){
+        if (route.name === "Paciente" && !(this.props.checkboxDeclaraCiente)) {
 
+          return (null);
+        }
+
+        if (route.name === "Confirmação do Agendamento" && (this.props.idconvenio === 0 || this.props.idmedico === 0
+          || this.props.idespecialidade === 0 || this.props.idplanoconvenio === 0
+          || this.props.nomePaciente === "" || this.props.cpfPaciente.replace('.', '').replace('.', '').replace('-', '') === ""
+          || this.props.fonePaciente === "")) {
           return (null);
         }
 
@@ -86,7 +94,10 @@ const mapStateToProps = state => ({
   idmedico: state.dadosAgendamento.idmedico,
   idespecialidade: state.dadosAgendamento.idespecialidade,
   idplanoconvenio: state.dadosAgendamento.idplanoconvenio,
-  checkboxDeclaraCiente: state.dadosAgendamento.checkboxDeclaraCiente
+  checkboxDeclaraCiente: state.dadosAgendamento.checkboxDeclaraCiente,
+  nomePaciente: state.dadosAgendamento.nomePaciente,
+  cpfPaciente: state.dadosAgendamento.cpfPaciente,
+  fonePaciente: state.dadosAgendamento.fonePaciente,
 })
 
 export default connect(mapStateToProps)(DefaultLayout)
