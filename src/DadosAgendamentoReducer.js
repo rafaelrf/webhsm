@@ -15,9 +15,9 @@ const INITIAL_STATE = {
     idplanoconvenio: 0,
     checkboxDeclaraCiente: false,
     dataConsulta: new Date(),
-    nomePaciente: "Diego Carvalho Pereira Macedo",
-    cpfPaciente: "02314693302",
-    fonePaciente: "86994859285"
+    nomePaciente: "",
+    cpfPaciente: "",
+    fonePaciente: ""
 }
 
 export default (state = INITIAL_STATE, action) => {

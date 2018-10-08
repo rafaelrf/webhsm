@@ -8,12 +8,20 @@ import Calendar from 'react-calendar';
 
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+
+import { Redirect } from 'react-router-dom';
+
 import {
   declaraEstarCiente, escolhendoDataConsulta
 } from '../../DadosAgendamentoActions'
 import { toastr } from 'react-redux-toastr'
 
 class Doctor extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = { redirect: false }
+  }
 
   actionFormMedico(event) {
     event.preventDefault();
@@ -23,7 +31,7 @@ class Doctor extends Component {
       return;
     }
 
-    window.location.href="/#/agendamento/medico/paciente";
+    this.setState({redirect: (<Redirect to="/agendamento/medico/paciente" />)});
   }
 
   render() {
@@ -125,6 +133,7 @@ class Doctor extends Component {
             </Form>
           </Container>
         </div>
+        {this.state.redirect}
       </div>
     );
   }

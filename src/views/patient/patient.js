@@ -5,6 +5,8 @@ import InputMask from 'react-input-mask';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
+import { Redirect } from 'react-router-dom';
+
 import {
     nomePacienteChange, cpfPacienteChange, fonePacienteChange,
 } from '../../DadosAgendamentoActions'
@@ -12,6 +14,11 @@ import { toastr } from 'react-redux-toastr'
 import { validaCPF } from '../../util/validacpf'
 
 class Patient extends Component {
+
+    constructor(props) {
+        super(props)
+        this.state = { redirect: false }
+    }
 
     actionFormPaciente(event) {
         event.preventDefault();
@@ -32,7 +39,7 @@ class Patient extends Component {
             return;
         }
 
-        window.location.href="/#/agendamento/medico/paciente/confirmacao";
+        this.setState({redirect: (<Redirect to="/agendamento/medico/paciente/confirmacao" />)});
     }
 
     render() {
@@ -87,6 +94,7 @@ class Patient extends Component {
                         </Row>
                     </Container>
                 </div>
+                {this.state.redirect}
             </div>
         );
     }

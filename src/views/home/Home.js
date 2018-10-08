@@ -4,6 +4,8 @@ import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGr
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
+import { Redirect } from 'react-router-dom';
+
 import {
   carregaConvenios, selecionaConvenio, selecionaPlano,
   selecionaEspecialidade, selecionaMedico
@@ -11,6 +13,11 @@ import {
 import { toastr } from 'react-redux-toastr'
 
 class Home extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = { redirect: false }
+  }
 
   componentWillMount() {
     this.props.carregaConvenios();
@@ -33,7 +40,7 @@ class Home extends Component {
       return;
     }
 
-    window.location.href="/#/agendamento/medico";
+    this.setState({redirect: (<Redirect to="/agendamento/medico" />)});
   }
 
   render() {
@@ -125,6 +132,7 @@ class Home extends Component {
             </Row>
           </Container>
         </div>
+        {this.state.redirect}
       </div>
     );
   }

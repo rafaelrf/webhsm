@@ -3,14 +3,21 @@ import {
     Button, Card, CardBody, CardGroup, Col, Container, Form, InputGroup, Row
 } from 'reactstrap';
 
+//import { Redirect } from 'react-router-dom';
+
 import { connect } from 'react-redux'
 import moment from 'moment';
 
 class Confirmation extends Component {
 
+    constructor(props) {
+        super(props)
+        this.state = { redirect: false }
+    }
+
     actionFormConfirmacao(event) {
         event.preventDefault();
-        //    window.location.href="/#/agendamento/medico/confirmacao/pagamento";
+        //this.setState({redirect: (<Redirect to="/agendamento/medico/confirmacao/pagamento" />)});
     }
 
     render() {
@@ -62,6 +69,7 @@ class Confirmation extends Component {
                         </Row>
                     </Container>
                 </div>
+                {this.state.redirect}
             </div>
         );
     }
