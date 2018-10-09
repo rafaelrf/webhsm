@@ -5,13 +5,7 @@ import { Container } from 'reactstrap';
 import {
   AppBreadcrumb,
   AppFooter,
-  AppHeader,
-  AppSidebar,
-  AppSidebarFooter,
-  AppSidebarForm,
-  AppSidebarHeader,
-  AppSidebarMinimizer,
-  AppSidebarNav,
+  AppHeader
 } from '@coreui/react';
 // sidebar nav config
 //import navigation from '../../_nav';
@@ -21,7 +15,7 @@ import routes from '../../routes';
 import DefaultFooter from './DefaultFooter';
 import DefaultHeader from './DefaultHeader';
 import MyToaster from '../../util/toaster'
-
+import { connect } from 'react-redux'
 
 class DefaultLayout extends Component {
 
@@ -36,6 +30,37 @@ class DefaultLayout extends Component {
     this.setState({ navData: { "items": getNav() } })
   }
 
+  validedRoutes() {
+    return (
+      routes.map((route, idx) => {
+
+        if (route.name === "Médico" && (this.props.idconvenio === 0 || this.props.idmedico === 0
+          || this.props.idespecialidade === 0 || this.props.idplanoconvenio === 0)) {
+
+          return (null);
+        }
+
+        if (route.name === "Paciente" && !(this.props.checkboxDeclaraCiente)) {
+
+          return (null);
+        }
+
+        if (route.name === "Confirmação do Agendamento" && (this.props.idconvenio === 0 || this.props.idmedico === 0
+          || this.props.idespecialidade === 0 || this.props.idplanoconvenio === 0
+          || this.props.nomePaciente === "" || this.props.cpfPaciente.replace('.', '').replace('.', '').replace('-', '') === ""
+          || this.props.fonePaciente === "")) {
+          return (null);
+        }
+
+        return route.component ? (<Route key={idx} path={route.path} exact={route.exact} name={route.name} render={props => (
+          <route.component {...props} />
+        )} />) : (null);
+
+      },
+      )
+    );
+  }
+
   render() {
     return (
       <div className="app">
@@ -47,14 +72,8 @@ class DefaultLayout extends Component {
             <AppBreadcrumb appRoutes={routes} />
             <Container fluid>
               <Switch>
-                {routes.map((route, idx) => {
-                  return route.component ? (<Route key={idx} path={route.path} exact={route.exact} name={route.name} render={props => (
-                    <route.component {...props} />
-                  )} />)
-                    : (null);
-                },
-                )}
-                <Redirect from="/" to="/dashboard" />
+                {this.validedRoutes()}
+                <Redirect from="/" to="/agendamento" />
               </Switch>
             </Container>
           </main>
@@ -68,4 +87,17 @@ class DefaultLayout extends Component {
   }
 }
 
-export default DefaultLayout;
+//export default DefaultLayout;
+
+const mapStateToProps = state => ({
+  idconvenio: state.dadosAgendamento.idconvenio,
+  idmedico: state.dadosAgendamento.idmedico,
+  idespecialidade: state.dadosAgendamento.idespecialidade,
+  idplanoconvenio: state.dadosAgendamento.idplanoconvenio,
+  checkboxDeclaraCiente: state.dadosAgendamento.checkboxDeclaraCiente,
+  nomePaciente: state.dadosAgendamento.nomePaciente,
+  cpfPaciente: state.dadosAgendamento.cpfPaciente,
+  fonePaciente: state.dadosAgendamento.fonePaciente,
+})
+
+export default connect(mapStateToProps)(DefaultLayout)
