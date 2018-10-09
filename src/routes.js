@@ -1,68 +1,37 @@
 import React from 'react';
 import Loadable from 'react-loadable'
 import DefaultLayout from './containers/DefaultLayout';
-import LoadingComp from './componentes/loading'
 
 function Loading() {
-  return <LoadingComp loading="true" />
+  return <div>Carregando...</div>;
 }
 
-const Dashboard = Loadable({
-  loader: () => import('./views/Dashboard'),
+const Home = Loadable({
+  loader: () => import('./views/home/Home'),
   loading: Loading,
 });
 
-const Ramais = Loadable({
-  loader: () => import('./views/menu/ramais'),
+const Doctor = Loadable({
+  loader: () => import('./views/doctor/Doctor'),
   loading: Loading,
 });
 
-const TIChamados = Loadable({
-  loader: () => import('./views/ti/chamados'),
+const Patient = Loadable({
+  loader: () => import('./views/patient/patient'),
   loading: Loading,
 });
 
-const servExecutados = Loadable({
-  loader: () => import('./views/medico/servExecutados'),
-  loading: Loading,
-});
-
-const repasses = Loadable({
-  loader: () => import('./views/medico/repasses'),
-  loading: Loading,
-});
-
-const repassesContador = Loadable({
-  loader: () => import('./views/contador/repassesContador'),
-  loading: Loading,
-});
-
-const pesqPac = Loadable({
-  loader: () => import('./views/medico/pesqPac'),
-  loading: Loading,
-});
-
-const exames = Loadable({
-  loader: () => import('./views/medico/exames'),
-  loading: Loading,
-});
-
-const contracheque = Loadable({
-  loader: () => import('./views/funcionario/contracheque'),
+const Confirmation = Loadable({
+  loader: () => import('./views/confirmation/confirmation'),
   loading: Loading,
 });
 
 const routes = [
-  { path: '/', exact: true, name: 'Home', component: DefaultLayout }
-  , { path: '/dashboard', name: 'Dashboard', component: Dashboard }
-  , { path: '/ramais', name: 'Ramais', component: Ramais }
-  , { path: '/contracheque', name: 'Contra Cheque', component: contracheque }
-  , { path: '/ti', name: 'T.I.', component: TIChamados }
-  , { path: '/servexec', name: 'Serviços Executados', component: servExecutados }
-  , { path: '/repasses', name: 'Repasses', component: repasses }
-  , { path: '/contador', name: 'Repasses', component: repassesContador }
-  , { path: '/paciente/pesquisar', name: 'Pesquisar Paciente', component: pesqPac }
-  , { path: '/paciente/:id/exames', name: 'Laudo dos Exames', component: exames }
+  { path: '/', exact: true, name: 'Home', component: DefaultLayout },
+  { path: '/agendamento', exact: true, name: 'Agendamento', component: Home },
+  { path: '/agendamento/medico', exact: true, name: 'Médico', component: Doctor },
+  { path: '/agendamento/medico/paciente', exact: true, name: 'Paciente', component: Patient },
+  { path: '/agendamento/medico/paciente/confirmacao', exact: true, name: 'Confirmação do Agendamento', component: Confirmation }
 ];
 
 export default routes;

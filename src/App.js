@@ -14,10 +14,7 @@ import 'simple-line-icons/css/simple-line-icons.css';
 // Import Main styles for this application
 import './scss/style.css'
 
-import { Page404, Page500, Register } from './views/Pages';
-
-import { DefaultLayout } from './containers';
-// import AuthOrApp from './authOrApp';
+import DefaultLayout from './containers/DefaultLayout/DefaultLayout';
 
 
 class App extends Component {
@@ -25,9 +22,6 @@ class App extends Component {
     return (
       <HashRouter>
         <Switch>
-          // <Route exact path="/register" name="Register Page" component={Register} />
-          // <Route exact path="/404" name="Page 404" component={Page404} />
-          // <Route exact path="/500" name="Page 500" component={Page500} />
           <Route path="/" name="Home" component={DefaultLayout} />
         </Switch>
       </HashRouter>
