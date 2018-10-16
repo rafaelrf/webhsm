@@ -13,6 +13,8 @@ const INITIAL_STATE = {
     planoconvenios: [],
     planoconvenio: null,
     idplanoconvenio: 0,
+    agendasmedico: [],
+    agendaescolhida: null,
     checkboxDeclaraCiente: false,
     dataConsulta: new Date(),
     nomePaciente: "",
@@ -31,24 +33,34 @@ export default (state = INITIAL_STATE, action) => {
                 ...state, idconvenio: action.payload,
                 convenio: state.convenios.filter((convenio) => (convenio.id_convenio === action.payload))[0],
                 planoconvenios: action.payloadplanos,
-                especialidades: action.payloadespecialidade,
-                medicos: action.payloadmedicos,
             }
         case 'PLANO_SELECIONADO_AGENDAMENTO':
             return {
                 ...state, idplanoconvenio: action.payload,
                 planoconvenio: state.planoconvenios.filter((planoconvenio) => (planoconvenio.id_plano === action.payload))[0]
             }
+        case 'CARREGAR_ESPECIALIDADE_AGENDAMENTO':
+            return {
+                ...state, especialidades: action.payload
+            }            
         case 'ESPECIALIDADE_SELECIONADA_AGENDAMENTO':
             return {
                 ...state, idespecialidade: action.payload,
                 especialidade: state.especialidades.filter((especialidade) => (especialidade.id_especialidade === action.payload))[0]
             }
+        case 'CARREGAR_MEDICO_AGENDAMENTO':
+            return {
+                ...state, medicos: action.payload
+            }                    
         case 'MEDICO_SELECIONADO_AGENDAMENTO':
             return {
                 ...state, idmedico: action.payload,
                 medico: state.medicos.filter((medico) => (medico.id_medico === action.payload))[0]
             }
+        case 'CARREGAR_AGENDA_MEDICO':
+            return {
+                ...state, agendasmedico: action.payload
+            }                       
         case 'CHECKBOX_DECLARA_CIENTE_AGENDAMENTO':
             return { ...state, checkboxDeclaraCiente: action.payload }
         case 'ESCONHEDO_DATA_CONSULTA':
