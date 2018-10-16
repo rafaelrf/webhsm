@@ -2,11 +2,11 @@ import axios from 'axios'
 
 const localStorageKey = '_hsmapp_user_'
 
-const baseUrl = 'https://www.saomarcos.org.br/web/integra/'
-//const baseUrl = 'http://127.0.0.1/web/integra/'
+//const baseUrl = 'https://www.saomarcos.org.br/web/integra/'
+const baseUrl = 'http://127.0.0.1:8080/rest/webhsm/'
 
-export function getJSON(url, param) {
-  const request = axios.post(baseUrl + url, param)
+export function getJSON(url) {
+  const request = axios.get(baseUrl + url)
 
   request
     .catch(error => alert(error))

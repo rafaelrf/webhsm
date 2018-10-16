@@ -15,6 +15,7 @@ import {
   declaraEstarCiente, escolhendoDataConsulta
 } from '../../DadosAgendamentoActions'
 import { toastr } from 'react-redux-toastr'
+import moment from 'moment'
 
 class Doctor extends Component {
 
@@ -31,7 +32,7 @@ class Doctor extends Component {
       return;
     }
 
-    this.setState({redirect: (<Redirect to="/agendamento/medico/paciente" />)});
+    this.setState({ redirect: (<Redirect to="/agendamento/medico/paciente" />) });
   }
 
   render() {
@@ -54,7 +55,7 @@ class Doctor extends Component {
                       <p>Diante da possibilidade da confirmação de doenças de alto risco à saúde, tem sido comum negativas de operadoras de planos de saúde em realizar alguns tipos de exames e procedimentos médicos de valores mais elevados.</p>
 
                       <div style={{ marginLeft: 15 }}>
-                        <Input checked={this.props.checkboxDeclaraCiente} className="form-check-input" type="checkbox" 
+                        <Input checked={this.props.checkboxDeclaraCiente} className="form-check-input" type="checkbox"
                           onChange={() => this.props.declaraEstarCiente(this.props.checkboxDeclaraCiente)} />
                         <Label check >
                           Declaro estar ciente das condições acima para a realização da consulta
@@ -83,6 +84,14 @@ class Doctor extends Component {
                 <Col xs="12" sm="6" md="6">
                   <Card>
                     <CardBody style={{ height: 346 }}>
+
+                      {this.props.agendasmedico.map((agenda, index) => {
+                        return (
+                          <Row key={index}
+                            className="justify-content-center" style={{ paddingBottom: 10 }}><h5>{moment(agenda.inicioconsulta, "DD/MM/YYYY hh:mm").format("DD/MM/YYYY")}</h5></Row>
+                        );
+                      })}
+
                       <Row className="justify-content-center" style={{ paddingBottom: 10 }}><h5>Segunda, 10/09/2018</h5></Row>
                       <Row className="justify-content-center" style={{ paddingBottom: 20 }}>
                         <Col xs="12" sm="4" md="2">
@@ -143,6 +152,8 @@ const mapStateToProps = state => ({
   medico: state.dadosAgendamento.medico,
   checkboxDeclaraCiente: state.dadosAgendamento.checkboxDeclaraCiente,
   dataConsulta: state.dadosAgendamento.dataConsulta,
+  agendasmedico: state.dadosAgendamento.agendasmedico,
+  agendaescolhida: state.dadosAgendamento.agendasmedico,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
