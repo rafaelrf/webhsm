@@ -12,10 +12,11 @@ import { bindActionCreators } from 'redux'
 import { Redirect } from 'react-router-dom';
 
 import {
-  declaraEstarCiente, escolhendoDataConsulta
+  declaraEstarCiente, escolhendoDataConsulta, selecionaHorarioAgenda
 } from '../../DadosAgendamentoActions'
 import { toastr } from 'react-redux-toastr'
 import moment from 'moment'
+import 'moment/locale/pt-br'
 
 class Doctor extends Component {
 
@@ -29,6 +30,12 @@ class Doctor extends Component {
 
     if (!this.props.checkboxDeclaraCiente) {
       toastr.error('Atenção', "Informe se Declara estar Ciente!");
+      return;
+    }else if (this.props.dataConsulta === null) {
+      toastr.error('Atenção', "Escolha uma data no calendário!");
+      return;
+    }else if (this.props.agendaescolhida === null) {
+      toastr.error('Atenção', "Escolha a data e horário da agenda do médico!");
       return;
     }
 
@@ -69,12 +76,12 @@ class Doctor extends Component {
                 <Col xs="12" sm="6" md="6">
                   <Card>
                     <CardHeader>
-                      Datas e horários disponíveis para atendimento:
-                  </CardHeader>
+                      Calendário
+                    </CardHeader>
                     <CardBody style={{ height: 300 }}>
                       <Row className="justify-content-center">
                         <Calendar
-                          onChange={this.props.escolhendoDataConsulta}
+                          onChange={(value) => this.props.escolhendoDataConsulta(value,this.props.convenio,this.props.medico)}
                           value={this.props.dataConsulta}
                         />
                       </Row>
@@ -83,52 +90,11 @@ class Doctor extends Component {
                 </Col>
                 <Col xs="12" sm="6" md="6">
                   <Card>
-                    <CardBody style={{ height: 346 }}>
-
-                      {this.props.agendasmedico.map((agenda, index) => {
-                        return (
-                          <Row key={index}
-                            className="justify-content-center" style={{ paddingBottom: 10 }}><h5>{moment(agenda.inicioconsulta, "DD/MM/YYYY hh:mm").format("DD/MM/YYYY")}</h5></Row>
-                        );
-                      })}
-
-                      <Row className="justify-content-center" style={{ paddingBottom: 10 }}><h5>Segunda, 10/09/2018</h5></Row>
-                      <Row className="justify-content-center" style={{ paddingBottom: 20 }}>
-                        <Col xs="12" sm="4" md="2">
-                          <Input className="form-check-input" type="radio" id="inline-radio1" name="inline-radios" />
-                          <Badge style={{ fontSize: 14 }} className="mr-1" color="danger"><Label className="form-check-label" check htmlFor="inline-radio2">9:00</Label></Badge>
-                        </Col>
-                        <Col xs="12" sm="4" md="2">
-                          <Input className="form-check-input" type="radio" id="inline-radio2" name="inline-radios" />
-                          <Badge style={{ fontSize: 14 }} className="mr-1" color="danger"><Label className="form-check-label" check htmlFor="inline-radio2">14:00</Label></Badge>
-                        </Col>
-                      </Row>
-                      <Row className="justify-content-center" style={{ paddingBottom: 10 }}><h5>Quarta, 11/09/2018</h5></Row>
-                      <Row className="justify-content-center" style={{ paddingBottom: 20 }}>
-                        <Col xs="12" sm="4" md="2">
-                          <Input className="form-check-input" type="radio" id="inline-radio1" name="inline-radios" />
-                          <Badge style={{ fontSize: 14 }} className="mr-1" color="danger"><Label className="form-check-label" check htmlFor="inline-radio2">9:00</Label></Badge>
-                        </Col>
-                        <Col xs="12" sm="4" md="2">
-                          <Input className="form-check-input" type="radio" id="inline-radio2" name="inline-radios" />
-                          <Badge style={{ fontSize: 14 }} className="mr-1" color="danger"><Label className="form-check-label" check htmlFor="inline-radio2">13:00</Label></Badge>
-                        </Col>
-                      </Row>
-                      <Row className="justify-content-center" style={{ paddingBottom: 10 }}><h5>Sexta, 14/09/2018</h5></Row>
-                      <Row className="justify-content-center" style={{ paddingBottom: 20 }}>
-                        <Col xs="12" sm="4" md="2">
-                          <Input className="form-check-input" type="radio" id="inline-radio1" name="inline-radios" />
-                          <Badge style={{ fontSize: 14 }} className="mr-1" color="danger"><Label className="form-check-label" check htmlFor="inline-radio2">9:00</Label></Badge>
-                        </Col>
-                        <Col xs="12" sm="4" md="2">
-                          <Input className="form-check-input" type="radio" id="inline-radio2" name="inline-radios" />
-                          <Badge style={{ fontSize: 14 }} className="mr-1" color="danger"><Label className="form-check-label" check htmlFor="inline-radio2">14:00</Label></Badge>
-                        </Col>
-                        <Col xs="12" sm="4" md="2">
-                          <Input className="form-check-input" type="radio" id="inline-radio2" name="inline-radios" />
-                          <Badge style={{ fontSize: 14 }} className="mr-1" color="danger"><Label className="form-check-label" check htmlFor="inline-radio2">16:30</Label></Badge>
-                        </Col>
-                      </Row>
+                    <CardHeader>
+                      Datas e horários disponíveis para atendimento:
+                    </CardHeader>
+                    <CardBody style={{ height: 300 }}>
+                      {this.montaHorariosAgenda()}
                     </CardBody>
                   </Card>
                 </Col>
@@ -146,18 +112,55 @@ class Doctor extends Component {
       </div>
     );
   }
+
+
+  montaHorariosAgenda() {
+    return (
+      this.props.agendasmedico.filter((item, i, ar) => (
+        ar.slice(i + 1, ar.length).filter((item2) => (item2.dtreferencia === item.dtreferencia)).length === 0
+      ))
+        .map((agenda, index) => {
+          if (index < 3) {
+            let dia = moment(agenda.dtreferencia, "DD/MM/YYYY HH:mm").locale('pt-BR');
+            return (
+              <div key={index} >
+                <Row key={index + "titulo"} className="justify-content-center" style={{ paddingBottom: 10 }}><h5>{dia.format("dddd, DD/MM/YYYY")}</h5></Row>
+                <Row key={index + "horario"} className="justify-content-center" style={{ paddingBottom: 20 }}>
+                  {
+                    this.props.agendasmedico.filter((item) => (item.dtreferencia === agenda.dtreferencia))
+                      .map((horario, i) => (
+                        <Col key={i} xs="12" sm="4" md="2">
+                          <Input onChange={() => this.props.selecionaHorarioAgenda(horario)} className="form-check-input" type="radio" id="inline-radio2" name="inline-radios" />
+                          <Badge style={{ fontSize: 14 }} className="mr-1" color="danger">
+                            <Label className="form-check-label" check htmlFor="inline-radio2">
+                              {moment(horario.hrinicon, "DD/MM/YYYY HH:mm").format("HH:mm")}
+                            </Label>
+                          </Badge>
+                        </Col>
+                      ))
+                  }
+                </Row>
+              </div>
+            )
+          }
+          return null;
+        }
+        )
+    );
+  }
 }
 
 const mapStateToProps = state => ({
+  convenio: state.dadosAgendamento.convenio,
   medico: state.dadosAgendamento.medico,
   checkboxDeclaraCiente: state.dadosAgendamento.checkboxDeclaraCiente,
   dataConsulta: state.dadosAgendamento.dataConsulta,
   agendasmedico: state.dadosAgendamento.agendasmedico,
-  agendaescolhida: state.dadosAgendamento.agendasmedico,
+  agendaescolhida: state.dadosAgendamento.agendaescolhida,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  declaraEstarCiente, escolhendoDataConsulta
+  declaraEstarCiente, escolhendoDataConsulta, selecionaHorarioAgenda
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Doctor)
