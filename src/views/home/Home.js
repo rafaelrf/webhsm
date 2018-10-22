@@ -79,7 +79,7 @@ class Home extends Component {
                             </InputGroupText>
                           </InputGroupAddon>
                           <Input type="select" name="selectLg" bsSize="lg" value={this.props.idplanoconvenio}
-                            onChange={this.props.selecionaPlano}>
+                            onChange={(e) => this.props.selecionaPlano(e,this.props.idconvenio)}>
                             <option value="0">Selecione o Plano</option>
                             {this.props.planoconvenios.map((plano) => {
                               return (
@@ -95,7 +95,7 @@ class Home extends Component {
                             </InputGroupText>
                           </InputGroupAddon>
                           <Input type="select" name="selectLg" bsSize="lg" value={this.props.idespecialidade}
-                            onChange={this.props.selecionaEspecialidade}>
+                            onChange={(e) => this.props.selecionaEspecialidade(e, this.props.idconvenio)}>
                             <option value="0">Selecione a Especialidade</option>
                             {this.props.especialidades.map((especialidade) => {
                               return (

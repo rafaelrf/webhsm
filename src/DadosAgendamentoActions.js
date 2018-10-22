@@ -15,21 +15,22 @@ export function carregaConvenios() {
 
 export function selecionaConvenio(e) {
     return dispatch => {
-        dispatch({ type: 'CONVENIO_SELECIONADO_AGENDAMENTO', payload: +e.target.value, payloadplanos: [] })
-        getJSON('plano/' + (e.target.value)).then(resp => {
+        dispatch({ type: 'CONVENIO_SELECIONADO_AGENDAMENTO', payload: +e.target.value})
+        getJSON('plano/' + (e.target.value)).then(resp => { console.log(resp.data);
             dispatch({
-                type: 'CONVENIO_SELECIONADO_AGENDAMENTO',
-                payload: (resp.data.length === 0) ? 0 : +resp.data[0].id_convenio, payloadplanos: resp.data
+                type: 'CARREGAR_PLANO_AGENDAMENTO',
+                payload:  resp.data
             })
         })
 
     }
 }
 
-export function selecionaPlano(e) {
+export function selecionaPlano(e,id_convenio) {
+
     return dispatch => {
         dispatch({ type: 'PLANO_SELECIONADO_AGENDAMENTO', payload: +e.target.value })
-        getJSON('especialidade').then(resp => {
+        getJSON('especialidade/' + id_convenio).then(resp => {
             dispatch({
                 type: 'CARREGAR_ESPECIALIDADE_AGENDAMENTO', payload: resp.data
             })
@@ -37,10 +38,12 @@ export function selecionaPlano(e) {
     }
 }
 
-export function selecionaEspecialidade(e) {
+export function selecionaEspecialidade(e,id_convenio) {
+  let parametro = e.target.value+"-"+id_convenio
+
     return dispatch => {
         dispatch({ type: 'ESPECIALIDADE_SELECIONADA_AGENDAMENTO', payload: +e.target.value })
-        getJSON('medico/'+(e.target.value)).then(resp => {
+        getJSON('medico/' + window.btoa(parametro)).then(resp => {
             dispatch({
                 type: 'CARREGAR_MEDICO_AGENDAMENTO', payload: resp.data
             })
@@ -93,4 +96,3 @@ export function cpfPacienteChange(e) {
 export function fonePacienteChange(e) {
     return { type: 'FONE_PACIENTE_CHANGE', payload: e.target.value }
 }
-
