@@ -1,4 +1,5 @@
 import { getJSON } from './util/metodos'
+import moment from 'moment'
 
 export function carregaConvenios() {
     return dispatch => {
@@ -48,15 +49,13 @@ export function selecionaEspecialidade(e) {
 }
 
 export function selecionaMedico(e) {
-    //return { type: 'MEDICO_SELECIONADO_AGENDAMENTO', payload: +e.target.value }
     return dispatch => {
         dispatch({ type: 'MEDICO_SELECIONADO_AGENDAMENTO', payload: +e.target.value })
-        getJSON('agenda/NTctMTYvMTAvMjAxOC0yNg==').then(resp => {
-            console.log(resp.data);
+        /*getJSON('agenda/'+window.btoa('57-16/10/2018-26')).then(resp => {
             dispatch({
                 type: 'CARREGAR_AGENDA_MEDICO', payload: resp.data
             })
-        })
+        })*/
     }
 }
 
@@ -64,8 +63,23 @@ export function declaraEstarCiente(value) {
     return { type: 'CHECKBOX_DECLARA_CIENTE_AGENDAMENTO', payload: !value }
 }
 
-export function escolhendoDataConsulta(data) {
-    return { type: 'ESCONHEDO_DATA_CONSULTA', payload: data }
+export function escolhendoDataConsulta(data, convenio, medico) {
+    let parametro = medico.id_medico+"-"+moment(data).format("DD/MM/YYYY")+"-"+convenio.id_convenio
+
+    console.log(parametro);
+    console.log(window.btoa(parametro));
+    return dispatch => {
+        dispatch({ type: 'ESCONHEDO_DATA_CONSULTA', payload: data })
+        getJSON('agenda/'+window.btoa(parametro)).then(resp => {
+            dispatch({
+                type: 'CARREGAR_AGENDA_MEDICO', payload: resp.data
+            })
+        })
+    }
+}
+
+export function selecionaHorarioAgenda(horario) {
+    return { type: 'HORARIO_SELECIONADO_AGENDAMENTO', payload: horario }
 }
 
 export function nomePacienteChange(e) {
@@ -80,42 +94,3 @@ export function fonePacienteChange(e) {
     return { type: 'FONE_PACIENTE_CHANGE', payload: e.target.value }
 }
 
-
-/*
-export function actionFormAgendamento(event, props) {
-    event.preventDefault();
-console.log(event);
-    if (props.idconvenio === 0) {
-        toastr.error('Atenção', "Informe o Convênio!");
-        return { type: '' };
-    } else if (props.idplanoconvenio === 0 ) {
-        toastr.error('Atenção', "Informe o Plano!");
-        return { type: '' };
-    } else if (props.idespecialidade === 0) {
-        toastr.error('Atenção', "Informe a Especialidade!");
-        return { type: '' };
-    } else if (props.idmedico === 0) {
-        toastr.error('Atenção', "Informe o Médico!");
-        return { type: '' };
-    }
-
-    return {type: 'ACTION_FORM_AGENDAMENTO'}
-}*/
-
-/*
-export function carregaSolicitacaoExames(event, props) {
-    event.preventDefault();
-    let query = querySolicitacoesExames(props.datainicio, props.datafim, props.idConvenio);
-    let sendData = { "query": query }
-
-    return dispatch => {
-        dispatch({ type: 'CARREGAR_SOL_EXAMES', payload: [], animacaocarregamento: true })
-        getJSON('generic', sendData).then(resp => {
-            dispatch({
-                type: 'CARREGAR_SOL_EXAMES', payload: resp.data, animacaocarregamento: false
-            })
-        })
-
-    }
-}
-*/

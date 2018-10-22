@@ -16,7 +16,8 @@ const INITIAL_STATE = {
     agendasmedico: [],
     agendaescolhida: null,
     checkboxDeclaraCiente: false,
-    dataConsulta: new Date(),
+    //dataConsulta: new Date(),
+    dataConsulta: null,
     nomePaciente: "",
     cpfPaciente: "",
     fonePaciente: ""
@@ -55,7 +56,9 @@ export default (state = INITIAL_STATE, action) => {
         case 'MEDICO_SELECIONADO_AGENDAMENTO':
             return {
                 ...state, idmedico: action.payload,
-                medico: state.medicos.filter((medico) => (medico.id_medico === action.payload))[0]
+                medico: state.medicos.filter((medico) => (medico.id_medico === action.payload))[0],
+                agendasmedico: [], agendaescolhida: null, checkboxDeclaraCiente: false,
+                dataConsulta: null,
             }
         case 'CARREGAR_AGENDA_MEDICO':
             return {
@@ -65,6 +68,8 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, checkboxDeclaraCiente: action.payload }
         case 'ESCONHEDO_DATA_CONSULTA':
             return { ...state, dataConsulta: action.payload }
+        case 'HORARIO_SELECIONADO_AGENDAMENTO':
+            return { ...state, agendaescolhida: action.payload }
         case 'NOME_PACIENTE_CHANGE':
             return { ...state, nomePaciente: action.payload }
         case 'CPF_PACIENTE_CHANGE':

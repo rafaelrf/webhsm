@@ -54,8 +54,11 @@ class Confirmation extends Component {
                                                     <h5>Médico: {this.props.medico.nm_medico}</h5>
                                                 </InputGroup>
                                                 <InputGroup className="mb-4">
-                                                    <h5>Data da Consulta: {moment(this.props.dataConsulta).format("DD/MM/YYYY hh:mm")}</h5>
-                                                </InputGroup>                                                
+                                                    <h5>Data da Consulta: {
+                                                        moment(this.props.agendaescolhida.dtreferencia, "DD/MM/YYYY").format("DD/MM/YYYY") +" "+
+                                                        moment(this.props.agendaescolhida.hrinicon, "DD/MM/YYYY HH:mm").format("HH:mm")
+                                                    }</h5>
+                                                </InputGroup>
                                                 <Row>
                                                     <Col xs="12">
                                                         <Button color="primary" block className="px-4" ><h4>Confirmar Agenda</h4></Button>
@@ -80,7 +83,7 @@ const mapStateToProps = state => ({
     medico: state.dadosAgendamento.medico,
     especialidade: state.dadosAgendamento.especialidade,
     planoconvenio: state.dadosAgendamento.planoconvenio,
-    dataConsulta: state.dadosAgendamento.dataConsulta,
+    agendaescolhida: state.dadosAgendamento.agendaescolhida,
     nomePaciente: state.dadosAgendamento.nomePaciente,
     cpfPaciente: state.dadosAgendamento.cpfPaciente,
     fonePaciente: state.dadosAgendamento.fonePaciente
