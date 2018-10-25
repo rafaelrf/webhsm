@@ -17,7 +17,10 @@ class Confirmation extends Component {
 
     actionFormConfirmacao(event) {
         event.preventDefault();
-        //this.setState({redirect: (<Redirect to="/agendamento/medico/confirmacao/pagamento" />)});
+        // this.setState({redirect: (<Redirect to={{
+        //           pathname: "/agendamento/medico/confirmacao/pagamento",
+        //           state: { from: this.props.location }
+        //         }} />)});
     }
 
     render() {

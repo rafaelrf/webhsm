@@ -3,7 +3,7 @@ import axios from 'axios'
 const localStorageKey = '_hsmapp_user_'
 
 //const baseUrl = 'https://www.saomarcos.org.br/web/integra/'
-const baseUrl = 'http://127.0.0.1:8080/rest/webhsm/'
+const baseUrl = 'http://intranet.saomarcos.org.br/webhsm/'
 
 export function getJSON(url) {
   const request = axios.get(baseUrl + url)
@@ -42,4 +42,3 @@ export function setLocalStorageParam(parm, value){
 export function removeLocalStorageParam(parm){
   localStorage.removeItem(parm)
 }
-

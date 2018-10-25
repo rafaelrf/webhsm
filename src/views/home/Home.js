@@ -4,7 +4,6 @@ import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGr
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { Redirect } from 'react-router-dom';
 
 import {
   carregaConvenios, selecionaConvenio, selecionaPlano,
@@ -40,8 +39,11 @@ class Home extends Component {
       toastr.error('Atenção', "Informe o Médico!");
       return;
     }
-
-    this.setState({redirect: (<Redirect to="/agendamento/medico" />)});
+    this.props.history.push("/agendamento/medico")
+    // this.setState({redirect: (<Redirect to={{
+    //           pathname: "/agendamento/medico",
+    //           state: { from: this.props.location }
+    //         }} />)});
   }
 
   render() {

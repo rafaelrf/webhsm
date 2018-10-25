@@ -5,7 +5,6 @@ import InputMask from 'react-input-mask';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { Redirect } from 'react-router-dom';
 
 import {
     nomePacienteChange, cpfPacienteChange, fonePacienteChange,
@@ -38,8 +37,12 @@ class Patient extends Component {
             toastr.error('Atenção', "Informe o Telefone do Paciente!");
             return;
         }
+        this.props.history.push("/agendamento/medico/paciente/confirmacao")
 
-        this.setState({redirect: (<Redirect to="/agendamento/medico/paciente/confirmacao" />)});
+        // this.setState({redirect: (<Redirect to={{
+        //           pathname: "/agendamento/medico/paciente/confirmacao",
+        //           state: { from: this.props.location }
+        //         }} />)})
     }
 
     render() {

@@ -9,7 +9,6 @@ import Calendar from 'react-calendar';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { Redirect } from 'react-router-dom';
 
 import {
   declaraEstarCiente, escolhendoDataConsulta, selecionaHorarioAgenda
@@ -38,8 +37,7 @@ class Doctor extends Component {
       toastr.error('Atenção', "Escolha a data e horário da agenda do médico!");
       return;
     }
-
-    this.setState({ redirect: (<Redirect to="/agendamento/medico/paciente" />) });
+    this.props.history.push("/agendamento/medico/paciente")
   }
 
   render() {

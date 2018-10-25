@@ -16,7 +16,7 @@ export function carregaConvenios() {
 export function selecionaConvenio(e) {
     return dispatch => {
         dispatch({ type: 'CONVENIO_SELECIONADO_AGENDAMENTO', payload: +e.target.value})
-        getJSON('plano/' + (e.target.value)).then(resp => { console.log(resp.data);
+        getJSON('plano/' + (e.target.value)).then(resp => { 
             dispatch({
                 type: 'CARREGAR_PLANO_AGENDAMENTO',
                 payload:  resp.data
@@ -69,8 +69,6 @@ export function declaraEstarCiente(value) {
 export function escolhendoDataConsulta(data, convenio, medico) {
     let parametro = medico.id_medico+"-"+moment(data).format("DD/MM/YYYY")+"-"+convenio.id_convenio
 
-    console.log(parametro);
-    console.log(window.btoa(parametro));
     return dispatch => {
         dispatch({ type: 'ESCONHEDO_DATA_CONSULTA', payload: data })
         getJSON('agenda/'+window.btoa(parametro)).then(resp => {
