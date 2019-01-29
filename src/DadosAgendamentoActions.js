@@ -16,7 +16,7 @@ export function carregaConvenios() {
 export function selecionaConvenio(e) {
     return dispatch => {
         dispatch({ type: 'CONVENIO_SELECIONADO_AGENDAMENTO', payload: +e.target.value})
-        getJSON('plano/' + (e.target.value)).then(resp => { 
+        getJSON('plano/' + (e.target.value)).then(resp => {
             dispatch({
                 type: 'CARREGAR_PLANO_AGENDAMENTO',
                 payload:  resp.data
@@ -59,6 +59,17 @@ export function selecionaMedico(e) {
                 type: 'CARREGAR_AGENDA_MEDICO', payload: resp.data
             })
         })*/
+    }
+}
+
+export function confirmarAgendamento(e,dados) {
+  let parametro = dados.fonePaciente+"-"+dados.nomePaciente+"-"+moment(dados.dataConsulta).format("DD/MM/YYYY HH:mm")
+  e.preventDefault();
+  window.location.reload();
+    return dispatch => {
+        dispatch({ type: 'CONFIRMAR_AGENDAMENTO', payload: +e.target.value })
+        getJSON('consulta/' + window.btoa(parametro)).then(resp => {
+         })
     }
 }
 

@@ -16,11 +16,11 @@ const INITIAL_STATE = {
   agendasmedico: [],
   agendaescolhida: null,
   checkboxDeclaraCiente: false,
-  //dataConsulta: new Date(),
+
   dataConsulta: null,
-  nomePaciente: "",
-  cpfPaciente: "",
-  fonePaciente: ""
+  nomePaciente: "Rafael",
+  cpfPaciente: "04001698358",
+  fonePaciente: "86999626659"
 }
 
 export default (state = INITIAL_STATE, action) => {
