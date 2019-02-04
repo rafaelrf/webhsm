@@ -1,0 +1,16 @@
+EXEC Proc_agendaconsulta
+  '08/02/2019 09:00',
+  '08/02/2019 11:00',
+  2496,
+  1055,
+  2,
+  26,
+  'Rafael Testando Sistema Online',
+  'rafaelrf',
+  NULL,
+  '86999626659',
+  '',
+  NULL,
+  NULL,
+  1,
+  'Primeira vez dele no sistema online'
