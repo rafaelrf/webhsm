@@ -3,7 +3,7 @@ import axios from 'axios'
 const localStorageKey = '_hsmapp_user_'
 
 //const baseUrl = 'https://www.saomarcos.org.br/web/integra/'
-const baseUrl = 'http://intranet.saomarcos.org.br/webhsm/'
+const baseUrl = 'http://intranet.saomarcos.org.br/api/'
 //const baseUrl = 'http://localhost:8080/webhsm/'
 
 export function getJSON(url) {

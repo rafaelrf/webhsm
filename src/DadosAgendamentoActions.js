@@ -63,7 +63,16 @@ export function selecionaMedico(e) {
 }
 
 export function confirmarAgendamento(e,dados) {
-  let parametro = dados.fonePaciente+"-"+dados.nomePaciente+"-"+moment(dados.dataConsulta).format("DD/MM/YYYY HH:mm")
+  let parametro =
+  moment(dados.dataConsulta).format("DD/MM/YYYY HH:mm")
+  +"-"+moment(dados.dataConsultaFim).format("DD/MM/YYYY HH:mm")
+  +"-"+dados.idmedico+"-"+dados.idespecialidade
+  +"-null-"+dados.idconvenio
+  +"-"+dados.nomePaciente+"-ONLINE"
+  +"-null-"+dados.fonePaciente
+  +"-null-null-null"+
+  +"-null-Agendamento Realizado via Sistema Agendamento Online"
+
   e.preventDefault();
   window.location.reload();
     return dispatch => {

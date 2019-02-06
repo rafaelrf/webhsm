@@ -16,11 +16,11 @@ const INITIAL_STATE = {
   agendasmedico: [],
   agendaescolhida: null,
   checkboxDeclaraCiente: false,
-
   dataConsulta: null,
-  nomePaciente: "Rafael",
-  cpfPaciente: "04001698358",
-  fonePaciente: "86999626659"
+  dataConsultaFim: null,
+  nomePaciente: "",
+  cpfPaciente: "",
+  fonePaciente: ""
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -39,6 +39,7 @@ export default (state = INITIAL_STATE, action) => {
         agendaescolhida: null,
         checkboxDeclaraCiente: false,
         dataConsulta: null,
+        dataConsultaFim: null,
         idplanoconvenio: 0,
         planoconvenio: null,
         planoconvenios: [],
@@ -63,6 +64,7 @@ export default (state = INITIAL_STATE, action) => {
         agendaescolhida: null,
         checkboxDeclaraCiente: false,
         dataConsulta: null,
+        dataConsultaFim: null,
         idespecialidade: 0,
         especialidade: null,
         especialidades: [],
@@ -84,6 +86,7 @@ export default (state = INITIAL_STATE, action) => {
         agendaescolhida: null,
         checkboxDeclaraCiente: false,
         dataConsulta: null,
+        dataConsultaFim: null,
         idmedico: 0,
         medico: null,
         medicos: [],
@@ -102,6 +105,7 @@ export default (state = INITIAL_STATE, action) => {
         agendaescolhida: null,
         checkboxDeclaraCiente: false,
         dataConsulta: null,
+        dataConsultaFim: null,
       }
     case 'CARREGAR_AGENDA_MEDICO':
       return {
