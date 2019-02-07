@@ -116,7 +116,7 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state,
         checkboxDeclaraCiente: action.payload
       }
-    case 'ESCONHEDO_DATA_CONSULTA':
+    case 'ESCOLHENDO_DATA_CONSULTA':
       return { ...state,
         dataConsulta: action.payload
       }

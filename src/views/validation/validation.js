@@ -18,7 +18,7 @@ import {bindActionCreators} from 'redux'
 import {confirmarAgendamento} from '../../DadosAgendamentoActions'
 import moment from 'moment';
 
-class Confirmation extends Component {
+class Validation extends Component {
 
   constructor(props) {
     super(props)
@@ -65,9 +65,8 @@ class Confirmation extends Component {
                       </InputGroup>
                       <InputGroup className="mb-4">
                         <h5>Data do Atendimento: {moment(this.props.dados.agendaescolhida.dtreferencia, "DD/MM/YYYY").format("DD/MM/YYYY")
-                          + " A partir das "
-                          + moment(this.props.dados.agendaescolhida.hrinicon, "DD/MM/YYYY HH:mm").format("HH:mm")+" - "
-                          + moment(this.props.dados.agendaescolhida.hrtercon, "DD/MM/YYYY HH:mm").format("HH:mm")}</h5>
+                          + " a partir das "
+                          + moment(this.props.dados.agendaescolhida.hrinicon, "DD/MM/YYYY HH:mm").format("HH:mm")}</h5>
                       </InputGroup>
                       <Row>
                         <Col xs="12">
@@ -94,4 +93,4 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   confirmarAgendamento
 }, dispatch)
 
-export default connect(mapStateToProps, mapDispatchToProps)(Confirmation)
+export default connect(mapStateToProps, mapDispatchToProps)(Validation)

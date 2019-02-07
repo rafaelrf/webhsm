@@ -23,6 +23,7 @@ class Home extends Component {
     this.props.carregaConvenios();
   }
 
+
   actionFormAgendamento(event) {
     event.preventDefault();
 
@@ -97,7 +98,7 @@ class Home extends Component {
                             </InputGroupText>
                           </InputGroupAddon>
                           <Input type="select" name="selectLg" bsSize="lg" value={this.props.idespecialidade}
-                            onChange={(e) => this.props.selecionaEspecialidade(e, this.props.idconvenio)}>
+                            onChange={(e) => this.props.selecionaEspecialidade(e, this.props.idconvenio,toastr)}>
                             <option value="0">Selecione a Especialidade</option>
                             {this.props.especialidades.map((especialidade) => {
                               return (
@@ -119,7 +120,9 @@ class Home extends Component {
                               return (
                                 <option key={medico.id_medico} value={medico.id_medico}>{medico.nm_medico}</option>
                               );
-                            })}
+                            })
+
+                            }
                           </Input>
                         </InputGroup>
                         <Row>

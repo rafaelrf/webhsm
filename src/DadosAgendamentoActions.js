@@ -38,12 +38,17 @@ export function selecionaPlano(e,id_convenio) {
     }
 }
 
-export function selecionaEspecialidade(e,id_convenio) {
+export function selecionaEspecialidade(e,id_convenio,toastr) {
   let parametro = e.target.value+"-"+id_convenio
 
     return dispatch => {
         dispatch({ type: 'ESPECIALIDADE_SELECIONADA_AGENDAMENTO', payload: +e.target.value })
         getJSON('medico/' + window.btoa(parametro)).then(resp => {
+          if (resp.data.length === 0 ) {
+            toastr.error('Atenção', "Não há médicos nessa especialidade que atendam ao convênio selecionado!");
+            return;
+          }
+
             dispatch({
                 type: 'CARREGAR_MEDICO_AGENDAMENTO', payload: resp.data
             })
@@ -76,7 +81,7 @@ export function confirmarAgendamento(e,dados) {
   e.preventDefault();
   window.location.reload();
     return dispatch => {
-        dispatch({ type: 'CONFIRMAR_AGENDAMENTO', payload: +e.target.value })
+        dispatch({ type: 'VALIDAR_AGENDAMENTO', payload: +e.target.value })
         getJSON('consulta/' + window.btoa(parametro)).then(resp => {
          })
     }
@@ -90,7 +95,7 @@ export function escolhendoDataConsulta(data, convenio, medico) {
     let parametro = medico.id_medico+"-"+moment(data).format("DD/MM/YYYY")+"-"+convenio.id_convenio
 
     return dispatch => {
-        dispatch({ type: 'ESCONHEDO_DATA_CONSULTA', payload: data })
+        dispatch({ type: 'ESCOLHENDO_DATA_CONSULTA', payload: data })
         getJSON('agenda/'+window.btoa(parametro)).then(resp => {
             dispatch({
                 type: 'CARREGAR_AGENDA_MEDICO', payload: resp.data
