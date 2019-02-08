@@ -37,7 +37,7 @@ const routes = [
   { path: '/agendamento/medico', exact: true, name: 'Médico', component: Doctor },
   { path: '/agendamento/medico/paciente', exact: true, name: 'Paciente', component: Patient },
   { path: '/agendamento/medico/paciente/validacao', exact: true, name: 'Validar Dados do Agendamento', component: Validation },
-  { path: '/agendamento/medico/paciente/validacao/confirmacao', exact: true, name: 'Confirmação  Agendamento', component: Confirmation }
+  { path: '/agendamento/medico/paciente/validacao/confirmacao', exact: true, name: 'Confirmação do Agendamento', component: Confirmation }
 ];
 
 export default routes;

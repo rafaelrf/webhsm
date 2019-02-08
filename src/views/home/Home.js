@@ -20,7 +20,7 @@ class Home extends Component {
 
   componentWillMount() {
     this.props.carregaConvenios();
-    this.props.carregaConvenios();
+    // this.props.carregaConvenios();
   }
 
 

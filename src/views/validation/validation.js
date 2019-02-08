@@ -11,7 +11,6 @@ import {
   Row
 } from 'reactstrap';
 
-//import { Redirect } from 'react-router-dom';
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 
@@ -27,6 +26,12 @@ class Validation extends Component {
     }
   }
 
+   actionFormValidacao (event){
+     event.preventDefault();
+     // this.props.confirmarAgendamento(event, this.props.dados)
+     this.props.history.push("/agendamento/medico/paciente/validacao/confirmacao")
+   }
+
   render() {
     return (<div className="animated fadeIn">
       <div className="flex-row align-items-center">
@@ -38,10 +43,10 @@ class Validation extends Component {
               <CardGroup>
                 <Card className="p-4">
                   <CardBody>
-                    <Form onSubmit={(e) => this.props.confirmarAgendamento(e, this.props.dados)}>
+                    <Form onSubmit={(e) => this.actionFormValidacao(e)}>
                       <h2 style={{
                           paddingBottom: "15px"
-                        }}>Confirmação do Agendamento</h2>
+                        }}>Validar Dados Do Agendamento</h2>
                       <InputGroup className="mb-3">
                         <h5>Paciente: {this.props.dados.nomePaciente}</h5>
                       </InputGroup>

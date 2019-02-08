@@ -78,8 +78,6 @@ export function confirmarAgendamento(e,dados) {
   +"-null-null-null"+
   +"-null-Agendamento Realizado via Sistema Agendamento Online"
 
-  e.preventDefault();
-  window.location.reload();
     return dispatch => {
         dispatch({ type: 'VALIDAR_AGENDAMENTO', payload: +e.target.value })
         getJSON('consulta/' + window.btoa(parametro)).then(resp => {

@@ -11,11 +11,9 @@ import {
   Row
 } from 'reactstrap';
 
-//import { Redirect } from 'react-router-dom';
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 
-import {confirmarAgendamento} from '../../DadosAgendamentoActions'
 import moment from 'moment';
 
 class Confirmation extends Component {
@@ -25,6 +23,11 @@ class Confirmation extends Component {
     this.state = {
       redirect: false
     }
+  }
+
+  actionFormConfirmacao (event){
+    event.preventDefault();
+    window.location.reload();
   }
 
   render() {
@@ -38,24 +41,12 @@ class Confirmation extends Component {
               <CardGroup>
                 <Card className="p-4">
                   <CardBody>
-                    <Form onSubmit={(e) => this.props.confirmarAgendamento(e, this.props.dados)}>
+                    <Form onSubmit={(e) => this.actionFormConfirmacao(e)}>
                       <h2 style={{
                           paddingBottom: "15px"
-                        }}>Confirmação do Agendamento</h2>
+                        }}>Agendamento Confirmado</h2>
                       <InputGroup className="mb-3">
                         <h5>Paciente: {this.props.dados.nomePaciente}</h5>
-                      </InputGroup>
-                      <InputGroup className="mb-4">
-                        <h5>CPF: {this.props.dados.cpfPaciente}</h5>
-                      </InputGroup>
-                      <InputGroup className="mb-4">
-                        <h5>Fone: {this.props.dados.fonePaciente}</h5>
-                      </InputGroup>
-                      <InputGroup className="mb-4">
-                        <h5>Convênio: {this.props.dados.convenio.nm_convenio}</h5>
-                      </InputGroup>
-                      <InputGroup className="mb-4">
-                        <h5>Plano: {this.props.dados.planoconvenio.nm_plano}</h5>
                       </InputGroup>
                       <InputGroup className="mb-4">
                         <h5>Especialidade: {this.props.dados.especialidade.nm_especialidade}</h5>
@@ -69,10 +60,15 @@ class Confirmation extends Component {
                           + moment(this.props.dados.agendaescolhida.hrinicon, "DD/MM/YYYY HH:mm").format("HH:mm")+" - "
                           + moment(this.props.dados.agendaescolhida.hrtercon, "DD/MM/YYYY HH:mm").format("HH:mm")}</h5>
                       </InputGroup>
+                      <InputGroup className="mb-4">
+                        <h5>Caso paciente não possa comparecer à consulta. Por favor, entrar em contato com o hospital:</h5>
+                        <h5> Telefone: (86) 2106-8262 </h5>
+                        <h5> Horário: 14h às 17h</h5>
+                      </InputGroup>
                       <Row>
                         <Col xs="12">
                           <Button color="primary" block="block" className="px-4">
-                            <h4>Confirmar Agendamento</h4>
+                            <h4>Finalizar</h4>
                           </Button>
                         </Col>
                       </Row>
@@ -91,7 +87,6 @@ class Confirmation extends Component {
 
 const mapStateToProps = state => ({dados: state.dadosAgendamento})
 const mapDispatchToProps = dispatch => bindActionCreators({
-  confirmarAgendamento
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Confirmation)
