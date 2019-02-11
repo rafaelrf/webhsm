@@ -28,7 +28,7 @@ class Validation extends Component {
 
    actionFormValidacao (event){
      event.preventDefault();
-     // this.props.confirmarAgendamento(event, this.props.dados)
+     this.props.confirmarAgendamento(event, this.props.dados)
      this.props.history.push("/agendamento/medico/paciente/validacao/confirmacao")
    }
 

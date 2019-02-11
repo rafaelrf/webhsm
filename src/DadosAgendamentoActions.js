@@ -69,14 +69,16 @@ export function selecionaMedico(e) {
 
 export function confirmarAgendamento(e,dados) {
   let parametro =
-  moment(dados.dataConsulta).format("DD/MM/YYYY HH:mm")
-  +"-"+moment(dados.dataConsultaFim).format("DD/MM/YYYY HH:mm")
-  +"-"+dados.idmedico+"-"+dados.idespecialidade
-  +"-null-"+dados.idconvenio
-  +"-"+dados.nomePaciente+"-ONLINE"
-  +"-null-"+dados.fonePaciente
-  +"-null-null-null"+
-  +"-null-Agendamento Realizado via Sistema Agendamento Online"
+  moment(dados.dataConsulta, "DD/MM/YYYY").format("DD/MM/YYYY")
+  +" "+ moment(dados.agendaescolhida.hrinicon, "DD/MM/YYYY HH:mm").format("HH:mm")
+  +"#"+moment(dados.dataConsulta, "DD/MM/YYYY").format("DD/MM/YYYY")
+  +" "+ moment(dados.agendaescolhida.hrtercon, "DD/MM/YYYY HH:mm").format("HH:mm")
+  +"#"+dados.idmedico+"#"+dados.idespecialidade
+  +"#null#"+dados.idconvenio
+  +"#"+dados.nomePaciente+"#ONLINE"
+  +"#null#"+dados.fonePaciente
+  +"#null#null#null"
+  +"#null#Agendamento Realizado via Sistema Agendamento Online"
 
     return dispatch => {
         dispatch({ type: 'VALIDAR_AGENDAMENTO', payload: +e.target.value })
